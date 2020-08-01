@@ -86,18 +86,24 @@ h2 {
   margin-bottom: 0rem;
   border-bottom: 1px solid #e1e1e1;
   padding: 1rem 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 .gastos-realizados li:last-of-type {
   margin-bottom: 0!important;
 }
 .gastos-realizados li p {
-  display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-self: flex-end;
   margin:0;
 }
-.gastos-realizados li p .gasto {
+.gastolip {
+  display: flex;
   background-color: #004085;
+  border-radius: 20%;
   padding: 1rem;
   color:white;
+  width: 4rem;
+  justify-content: center;
 }

@@ -1,29 +1,46 @@
-import React, { useState } from 'react';
-import Pregunta from './components/Pregunta'
-
+import React, { useState } from "react";
+import Pregunta from "./components/Pregunta";
+import Formulario from "./components/Formulario";
+import Listado from "./components/Listado";
+import ControlPresupuesto from "./components/ControlPresupuesto";
 
 function App() {
   // DEFINIR EL SATATE
-  const[ presupuesto, guardarPresupuesto ] = useState(0);
-  const[ restante, guardarRestante ] = useState(0);
+  const [presupuesto, guardarPresupuesto] = useState(0);
+  const [restante, guardarRestante] = useState(0);
+  const [mostrarpregunta, actualizarPregunta] = useState(true);
+  const [gastos, guardarGastos] = useState([]);
+
+  // cuando se agregue un nuevo gasto
+  const agregarNuevoGasto = (gasto) => {
+    guardarGastos([...gastos, gasto]);
+  };
 
   return (
     <div className="container">
       <header>
         <h1>Presupuesto Semanal</h1>
         <div className="contenido-principal contenido">
-          <Pregunta
-            guardarPresupuesto={guardarPresupuesto}
-            guardarRestante={guardarRestante} 
-          />  
-          <div className="row">
-            <div className="one-half column">
-              1
+          {mostrarpregunta ? (
+            <Pregunta
+              guardarPresupuesto={guardarPresupuesto}
+              guardarRestante={guardarRestante}
+              actualizarPregunta={actualizarPregunta}
+            />
+          ) : (
+            <div className="row">
+              <div className="one-half column">
+                <Formulario agregarNuevoGasto={agregarNuevoGasto} />
+              </div>
+              <div className="one-half column">
+                <Listado gastos={gastos} />
+                <ControlPresupuesto
+                  presupuesto={presupuesto}
+                  restante={restante}
+                />
+              </div>
             </div>
-            <div className="one-half column">
-              2
-            </div>
-          </div>
+          )}
         </div>
       </header>
     </div>
