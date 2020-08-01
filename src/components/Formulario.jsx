@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import Error from "./Error";
+import PropTypes from "prop-types";
 import shortid from "shortid";
+import Error from "./Error";
 
-const Formulario = ({agregarNuevoGasto}) => {
+
+const Formulario = ({guardarGasto, guardarCrearGasto}) => {
   const [nombre, guardarNombre] = useState("");
   const [cantidad, guardarCantidad] = useState(0);
   const [error, guardarError] = useState(false);
@@ -29,7 +31,8 @@ const Formulario = ({agregarNuevoGasto}) => {
     
     // pasar el gasto al componente principal
 
-    agregarNuevoGasto(gasto);
+    guardarGasto(gasto);
+    guardarCrearGasto(true);
 
     // resetear el formulario
 
@@ -51,7 +54,7 @@ const Formulario = ({agregarNuevoGasto}) => {
             type="text"
             className="u-full-width"
             placeholder="ej.Transporte"
-            value={nombre}
+            name={nombre}
             onChange={(e) => guardarNombre(e.target.value)}
           />
         </div>
@@ -61,18 +64,23 @@ const Formulario = ({agregarNuevoGasto}) => {
             type="number"
             className="u-full-width"
             placeholder="300"
-            value={cantidad}
+            name={cantidad}
             onChange={(e) => guardarCantidad(parseInt(e.target.value, 10))}
           />
         </div>
         <input
           type="submit"
           className="button-primary u-full-width"
-          value="Agregar gasto"
+          name="Agregar gasto"
         />
       </form>
     </div>
   );
 };
+
+Formulario.propTypes = {
+  guardarGasto: PropTypes.func.isRequired,
+  guardarCrearGasto: PropTypes.func.isRequired
+}
 
 export default Formulario;
